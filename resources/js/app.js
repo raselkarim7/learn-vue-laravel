@@ -4,7 +4,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
+require('./learnform');
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -34,11 +34,11 @@ const app = new Vue({
       name: 'example-component'
     },
     data: {
-      skills: []
+      skills: [],
     },
     mounted() {
         // Make an ajax request to our server.
-        console.log('vue js mounted ');
+        // console.log('vue js mounted ');
         axios.get('skills', {
             headers: {
                 'content-type': 'application/json'
@@ -49,3 +49,4 @@ const app = new Vue({
         })
     }
 });
+
