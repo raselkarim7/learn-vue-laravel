@@ -4,10 +4,10 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-require('./learnform');
 require('./bootstrap');
 
 window.Vue = require('vue');
+import axios from 'axios';
 
 /**
  * The following block of code may be used to automatically register your
@@ -37,8 +37,6 @@ const app = new Vue({
       skills: [],
     },
     mounted() {
-        // Make an ajax request to our server.
-        // console.log('vue js mounted ');
         axios.get('skills', {
             headers: {
                 'content-type': 'application/json'

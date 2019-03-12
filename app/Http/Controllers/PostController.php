@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -36,7 +39,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+
+        if (empty($validator )) {
+            DB::table('posts')->insert(['name' => $request->name, 'description' => $request->description ]);
+           return'Data Inserted Successfully';
+        }
+        return $validator;
+
     }
 
     /**

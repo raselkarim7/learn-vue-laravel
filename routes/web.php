@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('post/create', 'PostController@create');
+Route::post('post/store', 'PostController@store');
 
 Route::get('skills', function () {
    return ['Laravel ', 'Vue', 'Php', 'JavaScript', 'html', 'css'];

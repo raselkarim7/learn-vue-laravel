@@ -17,25 +17,29 @@
     <div class="p-5" id="learnform">
     <h3>@{{ intro }}</h3>
     <h4>Create Posts </h4>
-    <form @submit="onSubmit">
+    <form @submit.prevent="onSubmit"  @keypress="errors.clear($event.target.name)">
         <div class="form-group">
             <label for="name">Post Name</label>
             <input
                     v-model="name"
-                    type="text" class="form-control name" id="formGroupExampleInput" placeholder="Name "
+                    @keyup="errors.name = '' "
+                    type="text" name="name" class="form-control " id="formGroupExampleInput" placeholder="Name "
             >
+            <span class="text-danger" v-if="errors.get('name')">@{{ errors.get('name') }}</span>
+
         </div>
         <div class="form-group">
             <label for="description">Post Description</label>
             <input
                     v-model="description"
-                    type="text" class="form-control description" id="description" placeholder="Description"
+                    type="text" name="description" class="form-control " id="description" placeholder="Description"
             >
+            <span class="text-danger" v-if="errors.get('description')">@{{ errors.get('description') }}</span>
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button :disabled="errors.any()" type="submit" class="btn btn-primary">Create</button>
     </form>
     </div>
     <script src="https://unpkg.com/vue"></script>
-    <script src="{{url('../../js/app.js')}}"> </script>
+    <script src="{{url('../../js/learnform.js')}}"> </script>
 </body>
 </html>
