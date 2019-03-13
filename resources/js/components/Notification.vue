@@ -21,7 +21,7 @@ export default {
 
 <style lang="scss">
     .notification {
-        background-color: yellowgreen;
+        background-color: rgb(204, 204, 204);
         padding: 3px;
     }
 </style>

@@ -6241,7 +6241,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".notification {\n  background-color: yellowgreen;\n  padding: 3px;\n}", ""]);
+exports.push([module.i, ".notification {\n  background-color: #cccccc;\n  padding: 3px;\n}", ""]);
 
 // exports
 
@@ -49604,11 +49604,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Notification_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Notification.vue */ "./resources/js/components/Notification.vue");
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -49630,7 +49625,7 @@ var app = new Vue({
         'content-type': 'application/json'
       }
     }).then(function (response) {
-      _this.skills = response.data; // console.log('Response : ', response)
+      _this.skills = response.data;
     });
   }
 });
