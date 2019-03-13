@@ -2059,13 +2059,20 @@ function () {
   _createClass(Form, [{
     key: "data",
     value: function data() {
-      // Here we will determine: What data will go as payload
+      // Here we will determine: What data will go as payload in request
       // const formvalues = {name: this.name, description: this.description};
       // return formvalues;
       // Another Way.
-      var data = Object.assign({}, this);
-      delete data.originalData;
-      delete data.errors;
+      // const data = Object.assign({}, this);
+      //     delete data.originalData;
+      //     delete data.errors;
+      // Another Way
+      var data = {};
+
+      for (var property in this.originalData) {
+        data[property] = this[property];
+      }
+
       return data;
     }
   }, {
@@ -2073,17 +2080,18 @@ function () {
     value: function submit(requestType, url) {
       var _this = this;
 
-      var that = this;
-      var request = axios__WEBPACK_IMPORTED_MODULE_0___default.a[requestType](url, this.data()).then(function (response) {
-        _this.onSuccess(response);
+      // This has been done to return response back onSubmit method. 
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a[requestType](url, _this.data()).then(function (response) {
+          _this.onSuccess(response);
 
-        return 'success';
-      }).catch(function (error) {
-        _this.onFail(error);
+          resolve(response);
+        }).catch(function (error) {
+          _this.onFail(error);
 
-        return 'failed';
+          reject(error);
+        });
       });
-      return request;
     }
   }, {
     key: "onSuccess",
@@ -2132,7 +2140,8 @@ var learnfrom = new Vue({
         console.log(response);
         _this2.sumittingAnimation = false;
       }).catch(function (error) {
-        console.log(error);
+        console.log(error.response);
+        _this2.sumittingAnimation = false;
       });
     }
   },
