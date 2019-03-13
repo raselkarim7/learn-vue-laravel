@@ -16,5 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/learnform.js', 'public/js');
 
 
-
-mix.disableSuccessNotifications();
+mix.disableNotifications();

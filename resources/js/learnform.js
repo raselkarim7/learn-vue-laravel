@@ -1,94 +1,10 @@
 import axios from 'axios';
+import Form from './Form'
 
-class Errors {
-    constructor() {
-        this.errors = {}
-    }
-    get(field) {
-        if (this.errors[field]) {
-            return this.errors[field][0];
-        }
-    }
-    record(errors) {
-        this.errors = errors;
-    }
-    clear(field) {
-        if (field) {
-            delete this.errors[field];
-            return;
-        }
-        this.errors = {};
-    }
-    any() {
-        return Object.keys(this.errors).length > 0;
-    }
-}
+window.Vue = require('vue'); // aikhane aita ki lagbe?
+window.axios = axios; // aitao ki lagbe??
 
-class Form {
-    constructor(data) {
-        this.originalData = data;
-        for (let field in data) {
-            this[field] = data[field]
-        }
-        this.errors = new Errors();
-    }
-
-    data() {
-        // Here we will determine: What data will go as payload in request
-
-        // const formvalues = {name: this.name, description: this.description};
-        // return formvalues;
-
-        // Another Way.
-        // const data = Object.assign({}, this);
-        //     delete data.originalData;
-        //     delete data.errors;
-
-        // Another Way
-        let data = {};
-        for (let property in this.originalData) {
-            data[property] = this[property];
-        }
-
-        return data;
-    }
-
-    submit(requestType, url) {
-        // This has been done to return response back onSubmit method. 
-        return new Promise((resolve, reject) => {
-            axios[requestType](url, this.data())
-                .then(response => {
-                    this.onSuccess(response);
-                    resolve(response);
-                }).catch(error => {
-                    this.onFail(error);
-                    reject(error);
-                });
-        });
-    }
-
-    postRequest(url) {
-      return this.submit('post', url);
-    }
-
-    onSuccess(response) {
-        this.reset();
-        this.errors.clear();
-    }
-
-    onFail(error) {
-        this.errors.record(error.response.data.errors);
-    }
-
-    reset() {
-        for (let field in this.originalData) {
-            this[field] = '';
-        }
-    }
-}
-
-
-const learnfrom = new Vue({
+new Vue({
     el: '#learnform',
     data() {
         return {
@@ -116,11 +32,18 @@ const learnfrom = new Vue({
         },
     },
     created() {
+        console.log('CCC--------reated');
+    },
+    mounted() {
+        console.log('MMM--------ounted');
         axios.get('/posts')
             .then((response) => {
                 this.allposts = response.data;
             }).catch((error) => {
                 // console.log('All Post Error', error.response);
             });
+    },
+    updated() {
+        console.log('UUUU--------pdated');
     }
 });
