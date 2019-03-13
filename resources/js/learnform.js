@@ -23,25 +23,28 @@ new Vue({
             alert('Submitting');
             const request = this.form.postRequest('/post/store');
             request.then(response => {
-                console.log(response);
+                this.getAllPosts(); 
                 this.sumittingAnimation = false;
             }).catch(error => {
-                console.log(error.response);
                 this.sumittingAnimation = false;
             })
         },
+        getAllPosts() {
+            axios.get('/posts')
+                .then((response) => {
+                    this.allposts = response.data;
+                }).catch((error) => {
+                    // console.log('All Post Error', error.response);
+                });
+        }
     },
     created() {
         console.log('CCC--------reated');
     },
     mounted() {
+        this.getAllPosts(); 
         console.log('MMM--------ounted');
-        axios.get('/posts')
-            .then((response) => {
-                this.allposts = response.data;
-            }).catch((error) => {
-                // console.log('All Post Error', error.response);
-            });
+
     },
     updated() {
         console.log('UUUU--------pdated');

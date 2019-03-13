@@ -14422,11 +14422,19 @@ new Vue({
       alert('Submitting');
       var request = this.form.postRequest('/post/store');
       request.then(function (response) {
-        console.log(response);
+        _this.getAllPosts();
+
         _this.sumittingAnimation = false;
       }).catch(function (error) {
-        console.log(error.response);
         _this.sumittingAnimation = false;
+      });
+    },
+    getAllPosts: function getAllPosts() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/posts').then(function (response) {
+        _this2.allposts = response.data;
+      }).catch(function (error) {// console.log('All Post Error', error.response);
       });
     }
   },
@@ -14434,13 +14442,8 @@ new Vue({
     console.log('CCC--------reated');
   },
   mounted: function mounted() {
-    var _this2 = this;
-
+    this.getAllPosts();
     console.log('MMM--------ounted');
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/posts').then(function (response) {
-      _this2.allposts = response.data;
-    }).catch(function (error) {// console.log('All Post Error', error.response);
-    });
   },
   updated: function updated() {
     console.log('UUUU--------pdated');
