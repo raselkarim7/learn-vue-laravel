@@ -67,6 +67,10 @@ class Form {
         });
     }
 
+    postRequest(url) {
+      return this.submit('post', url);
+    }
+
     onSuccess(response) {
         this.reset();
         this.errors.clear();
@@ -101,7 +105,7 @@ const learnfrom = new Vue({
         onSubmit() {
             this.sumittingAnimation = true;
             alert('Submitting');
-            const request = this.form.submit('post', '/post/store');
+            const request = this.form.postRequest('/post/store');
             request.then(response => {
                 console.log(response);
                 this.sumittingAnimation = false;

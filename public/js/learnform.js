@@ -2094,6 +2094,11 @@ function () {
       });
     }
   }, {
+    key: "postRequest",
+    value: function postRequest(url) {
+      return this.submit('post', url);
+    }
+  }, {
     key: "onSuccess",
     value: function onSuccess(response) {
       this.reset();
@@ -2135,7 +2140,7 @@ var learnfrom = new Vue({
 
       this.sumittingAnimation = true;
       alert('Submitting');
-      var request = this.form.submit('post', '/post/store');
+      var request = this.form.postRequest('/post/store');
       request.then(function (response) {
         console.log(response);
         _this2.sumittingAnimation = false;
