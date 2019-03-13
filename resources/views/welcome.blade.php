@@ -15,7 +15,7 @@
     </head>
     <body>
         <div id="app">
-
+            <notification></notification>
             <ul>
                 <li v-for="skill in skills">@{{ skill }}</li>
             </ul>
