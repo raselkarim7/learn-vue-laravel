@@ -48790,21 +48790,19 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // import axios from 'axios';
 // import notification from './components/Notification.vue';
 
-var store = {
-  user: {
-    name: 'John Done'
-  }
-};
-new Vue({
-  el: '#one',
-  data: {
-    store: store
+Vue.component('cupon', {
+  props: ['code'],
+  template: "<input :value=\"code\" @input=\"updateCode($event.target.value)\" />",
+  methods: {
+    updateCode: function updateCode() {
+      console.log('Update Code . . .');
+    }
   }
 });
 new Vue({
-  el: '#two',
+  el: '#app',
   data: {
-    store: store
+    cupon: 'FREEBIE'
   }
 });
 

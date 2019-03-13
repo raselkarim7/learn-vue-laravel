@@ -3,22 +3,21 @@ window.Vue = require('vue');
 
 // import axios from 'axios';
 // import notification from './components/Notification.vue';
-let store = { 
-    user: {
-        name: 'John Done'
+
+Vue.component('cupon',{
+    props: ['code'], 
+    template: `<input :value="code" @input="updateCode($event.target.value)" />`,
+    methods: {
+        updateCode() {
+            console.log('Update Code . . .'); 
+        }
     }
-}
+});
 
 new Vue({
-    el: '#one',
+    el: '#app',
     data: {
-        store
+        cupon: 'FREEBIE'
     }
 })
 
-new Vue({
-    el: '#two',
-    data: {
-        store
-    }
-})

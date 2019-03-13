@@ -17,20 +17,24 @@
     </head>
     <body>
         <b class="tag is-danger p-2 m-2">I am using Bulma</b>
+        {{--
+            border p-2 mb-2 has-background-primary	
+            border p-2 has-background-grey-light
+         --}}
 
+        <div class="m-2" id="app">
 
-        <div class="m-2">
-            <div id="one" class="border p-2 mb-2 has-background-primary	"> 
-                <h1>
-                    @{{ store.user.name }}
-                </h1>
-            </div>
-            
-            <div id="two" class="border p-2 has-background-grey-light">
-                <h1>
-                    @{{ store.user.name }}
-                </h1> 
-            </div>
+             <!-- Learing Custom Input Here...
+                At First See this:   
+                <input v-model="cupon" />   
+                    // This two inputs are basically same, 
+                    // Using v-model, first we bind the value then update the input. 
+                <input :value="cupon" @input=" cupon = $event.target.value" /> 
+            -->
+            <cupon code="cupon"> </cupon>
+
+           
+
         </div>
 
         <script src="https://unpkg.com/vue"></script>
