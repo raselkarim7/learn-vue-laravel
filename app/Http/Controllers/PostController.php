@@ -39,9 +39,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         $validatedData = $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -53,7 +50,10 @@ class PostController extends Controller
            return'Data Inserted Successfully';
         }
         return $validator;
+    }
 
+    public function getAllPosts() {
+       return DB::table('posts')->get();
     }
 
     /**

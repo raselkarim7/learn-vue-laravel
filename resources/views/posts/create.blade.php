@@ -17,27 +17,42 @@
     <div class="p-5" id="learnform">
     <h3>@{{ intro }}</h3>
     <h4>Create Posts </h4>
-    <form @submit.prevent="onSubmit"  @keypress="errors.clear($event.target.name)">
+    <form @submit.prevent="onSubmit"  @keypress="form.errors.clear($event.target.name)">
         <div class="form-group">
             <label for="name">Post Name</label>
             <input
-                    v-model="name"
-                    @keyup="errors.name = '' "
+                    v-model="form.name"
+                    @keyup="form.errors.name = '' "
                     type="text" name="name" class="form-control " id="formGroupExampleInput" placeholder="Name "
             >
-            <span class="text-danger" v-if="errors.get('name')">@{{ errors.get('name') }}</span>
+            <span class="text-danger" v-if="form.errors.get('name')">@{{ form.errors.get('name') }}</span>
 
         </div>
         <div class="form-group">
             <label for="description">Post Description</label>
             <input
-                    v-model="description"
+                    v-model="form.description"
                     type="text" name="description" class="form-control " id="description" placeholder="Description"
             >
-            <span class="text-danger" v-if="errors.get('description')">@{{ errors.get('description') }}</span>
+            <span class="text-danger" v-if="form.errors.get('description')">@{{ form.errors.get('description') }}</span>
         </div>
-        <button :disabled="errors.any()" type="submit" class="btn btn-primary">Create</button>
+        <button :disabled="form.errors.any()" type="submit" v-if="!sumittingAnimation" class="btn btn-primary">
+            Create
+        </button>
+        <div class="spinner-border text-primary" v-if="sumittingAnimation" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </form>
+        <div>
+            <h1>All Posts</h1>
+            <ul>
+                <li v-for="post in allposts">
+                    <b>Name: </b> @{{post.name}}
+                    <br>
+                    <b>Description: </b> @{{post.description}}
+                </li>
+            </ul>
+        </div>
     </div>
     <script src="https://unpkg.com/vue"></script>
     <script src="{{url('../../js/learnform.js')}}"> </script>

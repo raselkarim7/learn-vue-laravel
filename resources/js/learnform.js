@@ -12,35 +12,104 @@ class Errors {
     record(errors) {
         this.errors = errors;
     }
-    clear(filed) {
-        delete this.errors[filed];
+    clear(field) {
+        if (field) {
+            delete this.errors[field];
+            return;
+        }
+        this.errors = {};
     }
     any() {
         return Object.keys(this.errors).length > 0;
-        console.log('Anyyyyyyyyyyyyyyy ', Object.keys(this.errors));
-        // Object.keys()
     }
 }
+
+class Form {
+    constructor(data) {
+        this.originalData = data;
+        for (let field in data) {
+            this[field] = data[field]
+        }
+        this.errors= new Errors();
+    }
+
+    data() {
+        // Here we will determine: What data will go as payload
+        // const formvalues = {name: this.name, description: this.description};
+        // return formvalues;
+
+        // Another Way.
+        const data = Object.assign({}, this);
+            delete data.originalData;
+            delete data.errors;
+        return data;
+    }
+
+    submit(requestType, url) {
+        const that = this;
+        const request = axios[requestType](url, this.data())
+            .then(response => {
+                this.onSuccess(response);
+                return 'success';
+            }).catch(error => {
+                this.onFail(error);
+                return 'failed';
+        });
+        return request;
+    }
+
+    onSuccess(response) {
+        this.reset();
+        this.errors.clear();
+    }
+
+    onFail(error) {
+        this.errors.record(error.response.data.errors);
+    }
+
+    reset() {
+        for (let field in this.originalData) {
+            this[field] = '';
+        }
+    }
+}
+
+
 const learnfrom = new Vue({
    el: '#learnform',
    data() {
        return {
            intro: 'Learn Form In Vue js',
-           name: '',
-           description: '',
-           errors: new Errors()
+           sumittingAnimation: false, 
+           allposts: [],
+           form: new Form({
+               name: '',
+               description: '',
+           }),
        }
    },
     methods: {
         onSubmit() {
+            this.sumittingAnimation = true;
             alert('Submitting');
-            const fromvalues = {name: this.name, description: this.description};
-            axios.post('/post/store', fromvalues)
-                .then(response => {
-                    console.log('Success Responseeee :: ', response);
-                }).catch(error => {
-                    this.errors.record(error.response.data.errors);
-                });
-        }
+            // Need to think about this. As form submit method is inside a Form class.
+            // So if I want to set an animation while submitting should I go like this ???
+            const request = this.form.submit('post', '/post/store');
+            request.then(response => {
+                console.log(response);
+                this.sumittingAnimation = false;
+            }).catch(error => {
+                console.log(error);
+                this.sumittingAnimation = false;
+            })
+        },
+    },
+    created() {
+       axios.get('/posts')
+           .then((response) => {
+               this.allposts = response.data;
+           }).catch((error) => {
+               // console.log('All Post Error', error.response);
+       });
     }
 });

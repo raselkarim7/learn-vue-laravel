@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('post/create', 'PostController@create');
+Route::get('posts', 'PostController@getAllPosts');
 Route::post('post/store', 'PostController@store');
 
 Route::get('skills', function () {
