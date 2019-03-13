@@ -1,25 +1,24 @@
 require('./bootstrap');
 window.Vue = require('vue');
 
-import axios from 'axios';
-import notification from './components/Notification.vue';
-
-const app = new Vue({
-    el: '#app',
-    components: {
-      notification
-    },
-    data: {
-      skills: [],
-    },
-    mounted() {
-        axios.get('skills', {
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => {
-            this.skills = response.data;
-        })
+// import axios from 'axios';
+// import notification from './components/Notification.vue';
+let store = { 
+    user: {
+        name: 'John Done'
     }
-});
+}
 
+new Vue({
+    el: '#one',
+    data: {
+        store
+    }
+})
+
+new Vue({
+    el: '#two',
+    data: {
+        store
+    }
+})
